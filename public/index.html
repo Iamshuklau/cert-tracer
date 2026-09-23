@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cert Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4ed8'/%3E%3Cpath d='M16 6.5 9 9.3v5c0 4.3 3 7.8 7 8.9 4-1.1 7-4.6 7-8.9v-5L16 6.5z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m13 15.3 2.2 2.2 4-4.2' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Icon sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="m12 12 6-6"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2M16 7l2 2M14 9l2 2"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+    <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
+    <symbol id="i-alert-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16.5h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c1.9.7 3.2 2.5 3.5 5.2"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L12 5.6"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4.5 18a9 9 0 1 1 15 0"/><path d="m12 13 4-4"/></symbol>
+  </svg>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark"><svg class="icon"><use href="#i-shield"/></svg></span>
+        <div class="brand-text">
+          <span class="brand-product">Cert Dashboard</span>
+          <span class="brand-org" id="org-name">My Organization</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main">
+        <span class="nav-section">Monitor</span>
+        <button id="nav-dashboard" class="nav-link active" title="Certificates"><svg class="icon"><use href="#i-grid"/></svg><span>Certificates</span></button>
+        <button id="nav-monthly" class="nav-link" title="Expiry calendar"><svg class="icon"><use href="#i-calendar"/></svg><span>Expiry calendar</span></button>
+        <button id="nav-discovery" class="nav-link admin-only" title="Discovery" hidden><svg class="icon"><use href="#i-radar"/></svg><span>Discovery</span></button>
+        <span class="nav-section admin-only" hidden>Administration</span>
+        <button id="nav-audit" class="nav-link admin-only" title="Audit log" hidden><svg class="icon"><use href="#i-list"/></svg><span>Audit log</span></button>
+        <button id="nav-admin" class="nav-link admin-only" title="Settings" hidden><svg class="icon"><use href="#i-settings"/></svg><span>Settings</span></button>
+      </nav>
+
+      <div class="user-menu">
+        <div class="user-identity">
+          <span class="avatar" id="current-avatar" aria-hidden="true"></span>
+          <div class="user-text">
+            <span id="current-user" class="user-name"></span>
+            <span id="current-role" class="user-role"></span>
+          </div>
+        </div>
+        <div class="user-actions">
+          <button id="btn-change-password" class="sidebar-action" title="Change password"><svg class="icon"><use href="#i-key"/></svg><span>Password</span></button>
+          <button id="btn-logout" class="sidebar-action" title="Sign out"><svg class="icon"><use href="#i-logout"/></svg><span>Sign out</span></button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <!-- Certificates -->
+      <main id="view-dashboard" class="view">
+        <header class="page-header">
+          <div>
+            <h1>Certificates</h1>
+            <p class="page-subtitle">Track expiry dates, renewal progress and ownership across your organization.</p>
+          </div>
+          <div class="page-actions">
+            <button id="btn-export" class="btn btn-secondary"><svg class="icon"><use href="#i-download"/></svg>Export CSV</button>
+            <button id="btn-import" class="btn btn-secondary"><svg class="icon"><use href="#i-upload"/></svg>Import CSV</button>
+            <input type="file" id="import-file-input" accept=".csv" hidden />
+            <button id="btn-add-cert" class="btn btn-primary"><svg class="icon"><use href="#i-plus"/></svg>Add certificate</button>
+          </div>
+        </header>
+
+        <section class="summary-grid" id="summary-grid" aria-label="Certificate summary">
+          <button type="button" class="summary-card" data-status="">
+            <span class="summary-top"><span class="summary-label">Total certificates</span><span class="summary-icon tone-neutral"><svg class="icon"><use href="#i-layers"/></svg></span></span>
+            <span class="summary-count" id="count-total">0</span>
+            <span class="summary-caption">In the inventory</span>
+          </button>
+          <button type="button" class="summary-card" data-status="expired">
+            <span class="summary-top"><span class="summary-label">Expired</span><span class="summary-icon tone-expired"><svg class="icon"><use href="#i-x-circle"/></svg></span></span>
+            <span class="summary-count" id="count-expired">0</span>
+            <span class="summary-caption">Past the expiry date</span>
+          </button>
+          <button type="button" class="summary-card" data-status="critical">
+            <span class="summary-top"><span class="summary-label">Critical</span><span class="summary-icon tone-critical"><svg class="icon"><use href="#i-alert-circle"/></svg></span></span>
+            <span class="summary-count" id="count-critical">0</span>
+            <span class="summary-caption" id="caption-critical">Expires within 7 days</span>
+          </button>
+          <button type="button" class="summary-card" data-status="warning">
+            <span class="summary-top"><span class="summary-label">Warning</span><span class="summary-icon tone-warning"><svg class="icon"><use href="#i-alert"/></svg></span></span>
+            <span class="summary-count" id="count-warning">0</span>
+            <span class="summary-caption" id="caption-warning">Expires in 8–30 days</span>
+          </button>
+          <button type="button" class="summary-card" data-status="upcoming">
+            <span class="summary-top"><span class="summary-label">Upcoming</span><span class="summary-icon tone-upcoming"><svg class="icon"><use href="#i-clock"/></svg></span></span>
+            <span class="summary-count" id="count-upcoming">0</span>
+            <span class="summary-caption" id="caption-upcoming">Expires in 31–90 days</span>
+          </button>
+          <button type="button" class="summary-card" data-status="healthy">
+            <span class="summary-top"><span class="summary-label">Healthy</span><span class="summary-icon tone-healthy"><svg class="icon"><use href="#i-check-circle"/></svg></span></span>
+            <span class="summary-count" id="count-healthy">0</span>
+            <span class="summary-caption" id="caption-healthy">More than 90 days left</span>
+          </button>
+        </section>
+
+        <section class="alert-banner" id="urgent-banner" role="status" hidden>
+          <span class="alert-icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+          <p><strong>Action required.</strong> <span id="urgent-count-text"></span></p>
+          <button type="button" class="btn btn-sm btn-secondary" id="urgent-review">Review now</button>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <label class="search-field">
+              <svg class="icon"><use href="#i-search"/></svg>
+              <input type="search" id="search-input" placeholder="Search by name, domain, issuer, owner, ticket or notes" aria-label="Search certificates" />
+            </label>
+            <select id="filter-status" aria-label="Filter by status">
+              <option value="">All statuses</option>
+              <option value="expired">Expired</option>
+              <option value="critical">Critical</option>
+              <option value="warning">Warning</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="healthy">Healthy</option>
+            </select>
+            <select id="filter-type" aria-label="Filter by type">
+              <option value="">All types</option>
+            </select>
+            <select id="filter-environment" aria-label="Filter by environment">
+              <option value="">All environments</option>
+            </select>
+            <select id="filter-workflow" aria-label="Filter by renewal stage">
+              <option value="">All renewal stages</option>
+              <option value="not_started">Not started</option>
+              <option value="ticket_raised">Ticket raised</option>
+              <option value="in_progress">In progress</option>
+              <option value="renewed">Renewed</option>
+              <option value="verified">Verified</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table id="cert-table" class="data-table wide">
+              <thead>
+                <tr>
+                  <th data-sort="name">Certificate</th>
+                  <th data-sort="expiry_date">Expires</th>
+                  <th data-sort="status">Status</th>
+                  <th data-sort="workflow_status">Renewal</th>
+                  <th data-sort="ticket_number">Ticket</th>
+                  <th data-sort="environment">Environment</th>
+                  <th data-sort="owner_team">Owner</th>
+                  <th class="col-actions"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="cert-table-body"></tbody>
+            </table>
+            <div id="empty-state" class="empty-state" hidden>
+              <svg class="icon empty-icon"><use href="#i-search"/></svg>
+              <p class="empty-title">No certificates found</p>
+              <p class="empty-text">Try a different search or filter, or add a certificate to the inventory.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Expiry calendar -->
+      <main id="view-monthly" class="view" hidden>
+        <header class="page-header">
+          <div>
+            <h1>Expiry calendar</h1>
+            <p class="page-subtitle">Certificates grouped by the month they expire. Select a month to see what needs renewing.</p>
+          </div>
+        </header>
+        <div id="month-cards" class="month-cards"></div>
+        <section class="panel">
+          <div class="table-wrap">
+            <table id="month-table" class="data-table">
+              <thead>
+                <tr><th>Certificate</th><th>Owner</th><th>Expires</th><th>Status</th><th>Renewal</th><th>Ticket</th></tr>
+              </thead>
+              <tbody id="month-table-body"></tbody>
+            </table>
+            <div id="month-empty-state" class="empty-state" hidden>
+              <svg class="icon empty-icon"><use href="#i-calendar"/></svg>
+              <p class="empty-title">Nothing expires in this month</p>
+              <p class="empty-text">Select another month above.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Discovery -->
+      <main id="view-discovery" class="view" hidden>
+        <header class="page-header">
+          <div>
+            <h1>Certificate discovery</h1>
+            <p class="page-subtitle">Hosts are checked over TLS to find certificates that are not yet in the inventory. Manage the host list under Settings.</p>
+          </div>
+          <div class="page-actions">
+            <span id="discovery-last-scan" class="meta-text"></span>
+            <button id="discovery-scan-now" class="btn btn-primary"><svg class="icon"><use href="#i-refresh"/></svg><span>Scan now</span></button>
+          </div>
+        </header>
+        <section class="panel">
+          <div class="table-wrap">
+            <table id="discovery-table" class="data-table wide">
+              <thead>
+                <tr><th>Host</th><th>Port</th><th>Certificate</th><th>Expires</th><th>Status</th><th>Inventory</th><th>Last checked</th><th class="col-actions"><span class="sr-only">Actions</span></th></tr>
+              </thead>
+              <tbody id="discovery-table-body"></tbody>
+            </table>
+            <div id="discovery-empty-state" class="empty-state" hidden>
+              <svg class="icon empty-icon"><use href="#i-radar"/></svg>
+              <p class="empty-title">No scan results yet</p>
+              <p class="empty-text">Add hosts under Settings → Certificate discovery, then select Scan now.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Audit log -->
+      <main id="view-audit" class="view" hidden>
+        <header class="page-header">
+          <div>
+            <h1>Audit log</h1>
+            <p class="page-subtitle">A permanent record of every change, sign-in, notification and scan.</p>
+          </div>
+          <div class="page-actions">
+            <select id="audit-filter-entity" aria-label="Filter audit events">
+              <option value="">All events</option>
+              <option value="certificate">Certificates</option>
+              <option value="user">Users</option>
+              <option value="settings">Settings</option>
+              <option value="auth">Sign-ins</option>
+              <option value="notification">Email notifications</option>
+              <option value="discovery">Discovery</option>
+            </select>
+            <button id="audit-refresh" class="btn btn-secondary"><svg class="icon"><use href="#i-refresh"/></svg>Refresh</button>
+          </div>
+        </header>
+        <section class="panel">
+          <div class="table-wrap">
+            <table id="audit-table" class="data-table">
+              <thead>
+                <tr><th>Time</th><th>User</th><th>Event</th><th>Action</th><th>Details</th></tr>
+              </thead>
+              <tbody id="audit-table-body"></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <button id="audit-prev" class="btn btn-secondary btn-sm">Previous</button>
+            <span id="audit-page-info" class="meta-text"></span>
+            <button id="audit-next" class="btn btn-secondary btn-sm">Next</button>
+          </div>
+        </section>
+      </main>
+
+      <!-- Settings -->
+      <main id="view-admin" class="view" hidden>
+        <header class="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p class="page-subtitle">Configure integrations, alerting, notifications and user access.</p>
+          </div>
+        </header>
+
+        <section class="settings-card">
+          <div class="settings-intro">
+            <span class="settings-icon"><svg class="icon"><use href="#i-link"/></svg></span>
+            <div>
+              <h2>Organization and CSR integration</h2>
+              <p>The <em>CSR</em> action on each certificate opens your CSR tool with the certificate's details filled in.
+                Available placeholders:
+                <code>{commonName}</code> <code>{sans}</code> <code>{organization}</code> <code>{orgUnit}</code>
+                <code>{country}</code> <code>{environment}</code> <code>{certName}</code></p>
+            </div>
+          </div>
+          <form id="settings-form" class="settings-form">
+            <div class="form-grid">
+              <label>Organization name
+                <input type="text" id="setting-org-name" placeholder="Acme Corporation" />
+              </label>
+              <label>CSR tool name
+                <input type="text" id="setting-csr-label" placeholder="CSR Generator" />
+              </label>
+              <label class="span-2">CSR tool URL template
+                <input type="text" id="setting-csr-url" placeholder="https://csr-tool.internal/new?cn={commonName}&san={sans}" />
+                <span class="hint">Must start with https:// or http://</span>
+              </label>
+            </div>
+            <div class="form-footer"><button type="submit" class="btn btn-primary">Save changes</button></div>
+          </form>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-intro">
+            <span class="settings-icon"><svg class="icon"><use href="#i-gauge"/></svg></span>
+            <div>
+              <h2>Alert thresholds</h2>
+              <p>How many days before expiry a certificate becomes Critical, Warning or Upcoming. Anything past its
+                expiry date is Expired; anything beyond the Upcoming window is Healthy.</p>
+            </div>
+          </div>
+          <form id="thresholds-form" class="settings-form">
+            <div class="form-grid form-grid-3">
+              <label>Critical within (days)
+                <input type="text" inputmode="numeric" id="threshold-critical" placeholder="7" />
+              </label>
+              <label>Warning within (days)
+                <input type="text" inputmode="numeric" id="threshold-warning" placeholder="30" />
+              </label>
+              <label>Upcoming within (days)
+                <input type="text" inputmode="numeric" id="threshold-upcoming" placeholder="90" />
+              </label>
+            </div>
+            <div id="thresholds-form-error" class="form-error" hidden></div>
+            <div class="form-footer"><button type="submit" class="btn btn-primary">Save thresholds</button></div>
+          </form>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-intro">
+            <span class="settings-icon"><svg class="icon"><use href="#i-mail"/></svg></span>
+            <div>
+              <h2>Email notifications</h2>
+              <p>A monthly digest of certificates expiring that month, plus any still expired, is emailed to the
+                recipients below on the chosen day.</p>
+            </div>
+          </div>
+          <form id="email-settings-form" class="settings-form">
+            <h3 class="form-section-title">SMTP server</h3>
+            <div class="form-grid">
+              <label>Host
+                <input type="text" id="smtp-host" placeholder="smtp.office365.com" />
+              </label>
+              <label>Port
+                <input type="text" inputmode="numeric" id="smtp-port" placeholder="587" />
+              </label>
+              <label>Username
+                <input type="text" id="smtp-user" placeholder="alerts@example.com" autocomplete="off" />
+              </label>
+              <label>Password
+                <input type="password" id="smtp-pass" placeholder="Leave blank to keep the current password" autocomplete="new-password" />
+              </label>
+              <label>From address
+                <input type="text" id="smtp-from" placeholder="Cert Dashboard &lt;alerts@example.com&gt;" />
+              </label>
+              <label>Encryption
+                <select id="smtp-secure">
+                  <option value="false">STARTTLS (usually port 587)</option>
+                  <option value="true">TLS/SSL (usually port 465)</option>
+                </select>
+              </label>
+            </div>
+
+            <h3 class="form-section-title">Delivery</h3>
+            <div class="form-grid">
+              <label class="span-2">Recipients
+                <input type="text" id="notify-recipients" placeholder="security-team@example.com, it-ops@example.com" />
+                <span class="hint">Separate multiple addresses with commas.</span>
+              </label>
+              <label>Monthly digest
+                <select id="email-enabled">
+                  <option value="false">Off</option>
+                  <option value="true">On</option>
+                </select>
+              </label>
+              <label>Send on day of month (1–28)
+                <input type="text" inputmode="numeric" id="email-send-day" placeholder="1" />
+              </label>
+            </div>
+            <p class="meta-text" id="last-sent-info"></p>
+
+            <h3 class="form-section-title">Test delivery</h3>
+            <div class="form-grid">
+              <label class="span-2">Send a test email to
+                <input type="text" id="test-email-address" placeholder="you@example.com" />
+              </label>
+            </div>
+            <div class="form-footer">
+              <button type="button" class="btn btn-secondary" id="btn-send-test">Send test email</button>
+              <button type="button" class="btn btn-secondary" id="btn-send-now">Send this month's digest now</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-intro">
+            <span class="settings-icon"><svg class="icon"><use href="#i-radar"/></svg></span>
+            <div>
+              <h2>Certificate discovery</h2>
+              <p>Hosts to check over TLS, one per line, as <code>host</code>, <code>host:port</code> or a full URL
+                (port 443 by default). Certificates not yet in the inventory appear on the Discovery page.</p>
+            </div>
+          </div>
+          <form id="discovery-settings-form" class="settings-form">
+            <div class="form-grid">
+              <label class="span-2">Hosts
+                <textarea id="discovery-targets" rows="4" placeholder="www.example.com&#10;api.example.com:8443&#10;internal-app.example.local"></textarea>
+              </label>
+              <label>Automatic scanning
+                <select id="discovery-enabled">
+                  <option value="false">Off</option>
+                  <option value="true">On</option>
+                </select>
+              </label>
+              <label>Scan every (hours)
+                <input type="text" inputmode="numeric" id="discovery-interval" placeholder="24" />
+              </label>
+            </div>
+            <p class="meta-text" id="discovery-last-scan-info"></p>
+            <div class="form-footer"><button type="submit" class="btn btn-primary">Save changes</button></div>
+          </form>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-intro">
+            <span class="settings-icon"><svg class="icon"><use href="#i-users"/></svg></span>
+            <div class="grow">
+              <h2>Users and access</h2>
+              <p>Admins manage settings, users and deletions. Editors add and update certificates.</p>
+            </div>
+            <button id="btn-add-user" class="btn btn-primary btn-sm"><svg class="icon"><use href="#i-plus"/></svg>Add user</button>
+          </div>
+          <div class="table-wrap bordered">
+            <table id="users-table" class="data-table">
+              <thead><tr><th>User</th><th>Role</th><th>Created</th><th class="col-actions"><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody id="users-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add / edit certificate -->
+  <div id="cert-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+      <div class="modal-header">
+        <h2 id="cert-modal-title">Add certificate</h2>
+        <p class="modal-subtitle">Fields marked * are required.</p>
+      </div>
+      <form id="cert-form">
+        <input type="hidden" id="cert-id" />
+        <input type="hidden" id="cert-source" value="manual" />
+        <div class="upload-box">
+          <span class="upload-icon"><svg class="icon"><use href="#i-file"/></svg></span>
+          <label class="upload-label">
+            <span class="upload-title">Fill in from a certificate file</span>
+            <span class="upload-hint">Upload a .pem, .crt or .cer file to read the domain, issuer and dates automatically.</span>
+            <input type="file" id="cert-file-input" accept=".pem,.crt,.cer,.cert" />
+          </label>
+          <span id="cert-file-status" class="upload-status"></span>
+        </div>
+
+        <h3 class="form-section-title">Certificate</h3>
+        <div class="form-grid">
+          <label>Name *
+            <input type="text" id="cert-name" required placeholder="Payments API – production" />
+          </label>
+          <label>Common name (domain) *
+            <input type="text" id="cert-common-name" required placeholder="api.example.com" />
+          </label>
+          <label>Subject alternative names
+            <input type="text" id="cert-sans" placeholder="www.example.com, example.com" />
+          </label>
+          <label>Issuing CA
+            <input type="text" id="cert-issuer" placeholder="DigiCert, Sectigo, Let's Encrypt…" />
+          </label>
+          <label>Type
+            <select id="cert-type">
+              <option>TLS/SSL</option>
+              <option>Code Signing</option>
+              <option>Client Auth</option>
+              <option>Email/S-MIME</option>
+              <option>Wildcard</option>
+              <option>Internal CA</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Environment
+            <select id="cert-environment">
+              <option>Production</option>
+              <option>Staging</option>
+              <option>Development</option>
+              <option>DR</option>
+              <option>Internal</option>
+            </select>
+          </label>
+        </div>
+
+        <h3 class="form-section-title">Validity</h3>
+        <div class="form-grid">
+          <label>Issued on
+            <input type="date" id="cert-issue-date" />
+          </label>
+          <label>Expires on *
+            <input type="date" id="cert-expiry-date" required />
+          </label>
+        </div>
+
+        <h3 class="form-section-title">Ownership and subject</h3>
+        <div class="form-grid">
+          <label>Owner / team
+            <input type="text" id="cert-owner-team" placeholder="Platform Engineering" />
+          </label>
+          <label>Organization (O)
+            <input type="text" id="cert-organization" placeholder="Acme Corporation" />
+          </label>
+          <label>Organizational unit (OU)
+            <input type="text" id="cert-org-unit" placeholder="IT" />
+          </label>
+          <label>Country (C)
+            <input type="text" id="cert-country" placeholder="US" maxlength="2" />
+          </label>
+        </div>
+
+        <h3 class="form-section-title">Renewal tracking</h3>
+        <div class="form-grid">
+          <label>Ticket number
+            <input type="text" id="cert-ticket-number" placeholder="INFRA-1234" />
+          </label>
+          <label>Renewal stage
+            <select id="cert-workflow-status">
+              <option value="not_started">Not started</option>
+              <option value="ticket_raised">Ticket raised</option>
+              <option value="in_progress">In progress</option>
+              <option value="renewed">Renewed</option>
+              <option value="verified">Verified</option>
+            </select>
+          </label>
+          <label class="span-2">Notes
+            <textarea id="cert-notes" rows="3" placeholder="Renewal steps, contacts, where the certificate is installed…"></textarea>
+          </label>
+        </div>
+
+        <div id="cert-form-error" class="form-error" hidden></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cert-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="cert-modal-save">Save certificate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div id="history-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="history-modal-title">
+      <div class="modal-header">
+        <h2 id="history-modal-title">Change history</h2>
+        <p class="modal-subtitle">Every change to this certificate, newest first.</p>
+      </div>
+      <div id="history-list" class="history-list"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="history-modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSR -->
+  <div id="csr-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="csr-modal-title">
+      <div class="modal-header">
+        <h2 id="csr-modal-title">Generate CSR</h2>
+      </div>
+      <p class="modal-text" id="csr-modal-desc"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="csr-modal-close">Close</button>
+        <a id="csr-modal-open" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Open CSR tool</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / edit user -->
+  <div id="user-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="user-modal-title">
+      <div class="modal-header">
+        <h2 id="user-modal-title">Add user</h2>
+        <p class="modal-subtitle">New users receive a temporary password and must set their own at first sign-in.</p>
+      </div>
+      <form id="user-form">
+        <input type="hidden" id="user-id" />
+        <div class="form-stack">
+          <label>Username
+            <input type="text" id="user-username" required autocomplete="off" placeholder="jane.doe" />
+          </label>
+          <label>Full name
+            <input type="text" id="user-display-name" required placeholder="Jane Doe" />
+          </label>
+          <label>Role
+            <select id="user-role">
+              <option value="editor">Editor — add and update certificates</option>
+              <option value="admin">Admin — full access including settings and users</option>
+            </select>
+          </label>
+        </div>
+        <div id="user-form-error" class="form-error" hidden></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="user-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save user</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div id="password-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="password-modal-title">
+      <div class="modal-header">
+        <h2 id="password-modal-title">Change password</h2>
+        <p id="password-modal-note" class="modal-subtitle" hidden>Your password was set by an administrator.
+          Choose a new password to continue.</p>
+      </div>
+      <form id="password-form">
+        <div class="form-stack">
+          <label>Current password
+            <input type="password" id="current-password" autocomplete="current-password" required />
+          </label>
+          <label>New password
+            <input type="password" id="pw-new-password" minlength="8" autocomplete="new-password" required />
+            <span class="hint">At least 8 characters.</span>
+          </label>
+          <label>Confirm new password
+            <input type="password" id="pw-confirm-password" minlength="8" autocomplete="new-password" required />
+          </label>
+        </div>
+        <div id="password-form-error" class="form-error" hidden></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="password-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm -->
+  <div id="confirm-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+      <div class="modal-header">
+        <h2 id="confirm-modal-title">Are you sure?</h2>
+      </div>
+      <p id="confirm-modal-text" class="modal-text"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="confirm-modal-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSV import results -->
+  <div id="import-result-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-lg" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2>Import summary</h2>
+      </div>
+      <div id="import-result-body" class="import-result-body"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="import-result-close">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- One-time secret -->
+  <div id="secret-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="secret-modal-title">
+      <div class="modal-header">
+        <h2 id="secret-modal-title">Temporary password</h2>
+        <p class="modal-subtitle">Share it with the user through a secure channel. It won't be shown again.</p>
+      </div>
+      <code id="secret-modal-value" class="secret-value"></code>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="secret-modal-close">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

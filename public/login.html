@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in · Cert Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4ed8'/%3E%3Cpath d='M16 6.5 9 9.3v5c0 4.3 3 7.8 7 8.9 4-1.1 7-4.6 7-8.9v-5L16 6.5z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m13 15.3 2.2 2.2 4-4.2' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-body">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  </svg>
+
+  <aside class="auth-aside">
+    <div class="brand">
+      <span class="brand-mark"><svg class="icon"><use href="#i-shield"/></svg></span>
+      <div class="brand-text"><span class="brand-product">Cert Dashboard</span></div>
+    </div>
+    <div>
+      <h2>Never miss a certificate renewal again.</h2>
+      <p class="auth-lead">A single, audited inventory of every certificate in your organization, with clear
+        ownership and early warning before anything expires.</p>
+      <ul class="auth-points">
+        <li><svg class="icon"><use href="#i-clock"/></svg><span>Expiry tracking with configurable alert thresholds</span></li>
+        <li><svg class="icon"><use href="#i-mail"/></svg><span>Monthly email digests to the teams that own renewals</span></li>
+        <li><svg class="icon"><use href="#i-list"/></svg><span>A complete audit trail of every change and sign-in</span></li>
+      </ul>
+    </div>
+    <p class="auth-footer">Authorized users only. Activity is logged.</p>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1>Sign in</h1>
+      <p class="auth-sub">Use the account provided by your administrator.</p>
+
+      <form id="login-form" class="auth-form">
+        <label>Username
+          <input type="text" id="username" autocomplete="username" required autofocus />
+        </label>
+        <label>Password
+          <input type="password" id="password" autocomplete="current-password" required />
+        </label>
+        <div id="login-error" class="form-error" hidden></div>
+        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      </form>
+      <p class="auth-help">Forgot your password? Ask an administrator to reset it.</p>
+    </div>
+  </main>
+
+  <div id="change-password-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cp-title">
+      <div class="modal-header">
+        <h2 id="cp-title">Set a new password</h2>
+        <p class="modal-subtitle">You're signing in with a temporary password. Choose your own password to continue.</p>
+      </div>
+      <form id="change-password-form">
+        <div class="form-stack">
+          <label>New password
+            <input type="password" id="new-password" minlength="8" autocomplete="new-password" required />
+            <span class="hint">At least 8 characters.</span>
+          </label>
+          <label>Confirm new password
+            <input type="password" id="confirm-password" minlength="8" autocomplete="new-password" required />
+          </label>
+        </div>
+        <div id="change-password-error" class="form-error" hidden></div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save and continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

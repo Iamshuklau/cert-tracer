@@ -1,0 +1,16 @@
+{
+  "name": "cert-dashboard",
+  "version": "1.0.0",
+  "description": "Certificate expiry tracking dashboard with audit logging",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^2.0.0",
+    "nodemailer": "^10.0.10"
+  }
+}

@@ -1,0 +1,4 @@
+name,common_name,sans,issuer,cert_type,environment,owner_team,organization,org_unit,country,issue_date,expiry_date,ticket_number,workflow_status,notes
+Payments API Prod,api.payments.example.com,"www.payments.example.com,payments.example.com",DigiCert,TLS/SSL,Production,Platform Infra,Example Corp,Platform,US,2025-01-15,2026-01-15,INFRA-1201,ticket_raised,Renew via DigiCert portal
+Internal Jenkins,jenkins.internal.example.com,,Internal CA,TLS/SSL,Internal,DevOps,Example Corp,IT,US,2025-06-01,2025-12-01,,not_started,Auto-renews via ACME
+Code Signing Cert,Example Corp Code Signing,,Sectigo,Code Signing,Production,Release Engineering,Example Corp,Engineering,US,2024-03-01,2026-03-01,,not_started,Used for Windows installer signing
