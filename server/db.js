@@ -1,6 +1,5 @@
 const path = require('node:path');
 const fs = require('node:fs');
-const crypto = require('node:crypto');
 const { DatabaseSync } = require('node:sqlite');
 const bcrypt = require('bcryptjs');
 
@@ -102,7 +101,7 @@ function seedDefaultAdmin() {
   const count = db.prepare('SELECT COUNT(*) AS c FROM users').get().c;
   if (count > 0) return;
 
-  const password = crypto.randomBytes(9).toString('base64url');
+  const password = 'try12@';
   const hash = bcrypt.hashSync(password, 10);
   db.prepare(
     `INSERT INTO users (username, password_hash, display_name, role, must_change_password)

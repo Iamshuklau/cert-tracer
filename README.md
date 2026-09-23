@@ -92,13 +92,13 @@ PORT=8080 npm start
 ## 3. First sign-in
 
 The first time the app starts, it creates an administrator account and prints its temporary
-password in the terminal:
+password (`try12@`) in the terminal:
 
 ```
 ========================================================
  Created default admin account
  Username: admin
- Password: <random password>
+ Password: try12@
 ========================================================
 ```
 
